@@ -34,3 +34,71 @@ Imagine a development team working on a hotel reservation application. They need
 
 ## Conclusion:
 In this report, we demonstrated how to use Postman to interact with the Restful-booker API, from creating the collection to exporting and sharing it via GitHub. Through a case study, we illustrated how this approach can be beneficial for development teams needing to integrate APIs into their projects, enabling efficient testing and ensuring the quality of the software delivered to users.
+
+
+# Creation of the Test Suite with Postman:
+Let's create a test suite in Postman that will cover all endpoints from the Restful-booker API documentation.
+
+Endpoints to be covered:
+
+Create Booking
+Update Booking
+Get Booking
+Get All Bookings
+Delete Booking
+
+```
+// Tests for the endpoint "Create Booking"
+pm.test("Create Booking Test", function () {
+    pm.response.to.have.status(200);
+    pm.expect(pm.response.json().bookingid).to.be.a('number');
+});
+
+// Tests for the endpoint "Update Booking"
+pm.test("Update Booking Test", function () {
+    pm.response.to.have.status(200);
+    pm.expect(pm.response.json().firstname).to.eql("John");
+});
+
+// Tests for the endpoint "Get Booking"
+pm.test("Get Booking Test", function () {
+    pm.response.to.have.status(200);
+    pm.expect(pm.response.json().firstname).to.eql("John");
+});
+
+// Tests for the endpoint "Get All Bookings"
+pm.test("Get All Bookings Test", function () {
+    pm.response.to.have.status(200);
+    pm.expect(pm.response.json().bookings.length).to.be.above(0);
+});
+
+// Tests for the endpoint "Delete Booking"
+pm.test("Delete Booking Test", function () {
+    pm.response.to.have.status(201);
+});
+
+```
+
+# Report generation using the Allure Framework:
+To generate the report using the Allure Framework, we will first install the Newman-Reporter-Allure-Reporter library:
+
+```
+npm install -g newman-reporter-allure
+```
+
+```
+newman run collection.json -r allure
+```
+
+# Augmenting the API with other endpoints using JSON Server:
+Let's create a db.json file with new endpoints to simulate the Restful-booker API using JSON Server:
+
+```
+{
+  "bookings": [],
+  "transportReservations": []
+}
+```
+
+# Adding JSON Server to the Automation Project Repository:
+We can include the db.json and the JSON Server initialization script in the project repository.
